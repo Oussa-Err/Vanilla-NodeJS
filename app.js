@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
-
+const news = require('./news.json')
 
 
 
@@ -18,7 +18,13 @@ app.patch('/api/v1', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-    res.send({message:  'hello home' })
+    res.send(news)
+})
+
+app.put('/home', (req, res) => {
+    const my_var = res.send(news[0].date = 0)
+
+    return my_var
 })
 
 
