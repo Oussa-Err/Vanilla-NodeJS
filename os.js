@@ -1,5 +1,3 @@
-const names = require("./names")
-const sayHi = require("./sayHi")
 const os = require('os')
 
 
@@ -13,4 +11,5 @@ const currentOS = {
     totalmem: os.totalmem(),
     freeMemory: os.freemem(),
 }
+console.log(currentOS)
 

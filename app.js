@@ -1,32 +1,14 @@
-const mongoose = require('mongoose')
-const express = require('express')
-const app = express()
-const news = require('./news.json')
+const http = require('http')
+const app = http
 
-
-
-const port = process.env.PORT || 8080
-
-app.get('/', (req, res) => {
-    res.send('hello world')
-})
-
-app.patch('/api/v1', (req, res) => {
-    req.fetch()
-    
-    next()
-})
-
-app.get('/home', (req, res) => {
-    res.send(news)
-})
-
-app.put('/home', (req, res) => {
-    const my_var = res.send(news[0].date = 0)
-
-    return my_var
+const server = http.createServer((request, response) => {
+    response.end('hi there')
+    console.log('server just received a request')
+    console.log(request)
 })
 
 
-console.log("hello there!")
-app.listen(port, console.log(`the server is listening on port ${port}`))
+
+server.listen(3000, '127.0.0.1', () => {
+    console.log('server has started')
+})
