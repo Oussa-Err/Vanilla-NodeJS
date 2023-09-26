@@ -1,12 +1,12 @@
+const fs = require("fs")
 const http = require('http')
-const app = http
 
+
+const regiserPage = fs.readFileSync('./content/registerPage.html', 'utf-8')
 const server = http.createServer((request, response) => {
-    response.end('hi there')
+    response.end(regiserPage)
     console.log('server just received a request')
-    console.log(request)
 })
-
 
 
 server.listen(3000, '127.0.0.1', () => {
