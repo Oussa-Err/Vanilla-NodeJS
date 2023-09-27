@@ -2,7 +2,7 @@ const fs = require("fs")
 const http = require('http')
 
 
-const regiserPage = fs.readFileSync('./content/registerPage.html', 'utf-8')
+const regiserPage = fs.readFileSync('./Pages/registerPage.html', 'utf-8')
 const server = http.createServer((request, response) => {
     response.end(regiserPage)
     console.log('server just received a request')
