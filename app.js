@@ -7,6 +7,18 @@ const html = fs.readFileSync("./Template/index.html", "utf-8")
 let products = JSON.parse(fs.readFileSync("./Data/products.json", "utf-8"))
 let productListHtml = fs.readFileSync("./Template/product-list.html", "utf-8")
 
+let productHtmlArray = products.map((prod) => {
+    let output = productListHtml.replace("{{%MODELIMAGE%}}", prod.productImage)
+    output = output.replace('{{%PHONENAME%}}', prod.name)
+    output = output.replace('{{%MODELNAME%}}', prod.modeName)
+    output = output.replace('{{%MODELNO%}}', prod.modelNumber)
+    output = output.replace('{{%MODELSIZE%}}', prod.size)
+    output = output.replace('{{%CAMERA%}}', prod.camera)
+    output = output.replace('{{%PRICE%}}', prod.price)
+    output = output.replace('{{%COLOR%}}', prod.color)
+
+    return output
+})
 
 const server = http.createServer((request, response) => {
     const path = request.url
@@ -15,18 +27,7 @@ const server = http.createServer((request, response) => {
             'Content-Type': 'text/html',
             'My-Header': 'hello world'
         })
-
-        products.map((prod, index) => {
-            return response.replace('{{%MODELNAME%}}', prod["name"])
-        })
-
-    }
-    else if (path.toLocaleLowerCase() === "/contact") {
-        response.writeHead(200, {
-            'Content-Type': 'text/html',
-            'My-Header': 'hello world'
-        })
-        response.end(html.replace("{{%CONTENT%}}", `you are in the contact page`))
+        response.end(html.replace('{{%CONTENT%}}', 'You are in the Home page'))
     }
     else if (path.toLocaleLowerCase() === "/about") {
         response.writeHead(200, {
@@ -35,12 +36,19 @@ const server = http.createServer((request, response) => {
         })
         response.end(html.replace("{{%CONTENT%}}", `you are in the about page`))
     }
+    else if (path.toLocaleLowerCase() === "/contact") {
+        response.writeHead(200, {
+            'Content-Type': 'text/html',
+            'My-Header': 'hello world'
+        })
+        response.end(html.replace("{{%CONTENT%}}", `you are in the contact page`))
+    }
     else if (path.toLocaleLowerCase() === '/products') {
+        let productResponseArray = html.replace('{{%CONTENT%}}', productHtmlArray.join(','))
         response.writeHead(200, {
             'Content-Type': 'text/html',
         })
-        response.end('you are in product page')
-        console.log(products)
+        response.end(productResponseArray)
     }
     else {
         response.writeHead(404,
