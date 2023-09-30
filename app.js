@@ -1,9 +1,12 @@
+const { response } = require("express")
 const fs = require("fs")
 const http = require('http')
 
 
-const html = fs.readFileSync("./index.html", "utf-8")
+const html = fs.readFileSync("./Template/index.html", "utf-8")
 let products = JSON.parse(fs.readFileSync("./Data/products.json", "utf-8"))
+let productListHtml = fs.readFileSync("./Template/product-list.html", "utf-8")
+
 
 const server = http.createServer((request, response) => {
     const path = request.url
@@ -12,7 +15,10 @@ const server = http.createServer((request, response) => {
             'Content-Type': 'text/html',
             'My-Header': 'hello world'
         })
-        response.end(html.replace("{{%CONTENT%}}", `you are in the Home page`))
+
+        products.map((prod, index) => {
+            return response.replace('{{%MODELNAME%}}', prod["name"])
+        })
 
     }
     else if (path.toLocaleLowerCase() === "/contact") {
