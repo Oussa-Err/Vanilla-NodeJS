@@ -13,6 +13,10 @@ let productDetailHtml = fs.readFileSync("./Template/product-details.html", 'utf-
 
 const server = http.createServer()
 
+server.listen(8080, '127.0.0.1', () => {
+    console.log('server has started')
+})
+
 server.on('request', (request, response) => {
     let { query, pathname: path } = url.parse(request.url, true)
 
@@ -59,8 +63,4 @@ server.on('request', (request, response) => {
         )
         response.end(html.replace("{{%CONTENT%}}", `404: page not found`))
     }
-})
-
-server.listen(8080, '127.0.0.1', () => {
-    console.log('server has started')
 })
