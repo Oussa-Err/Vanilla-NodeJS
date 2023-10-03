@@ -1,6 +1,7 @@
 const fs = require("fs")
 const http = require('http')
 const url = require("url")
+const events = require('events')
 const replaceHtml = require("./Modules/replaceHtml")
 
 
@@ -9,13 +10,10 @@ let products = JSON.parse(fs.readFileSync("./Data/products.json", "utf-8"))
 let productListHtml = fs.readFileSync("./Template/product-list.html", "utf-8")
 let productDetailHtml = fs.readFileSync("./Template/product-details.html", 'utf-8')
 
-// event-driven 
+//nodeJS is event-driven, observer-pattern
 
 const server = http.createServer()
 
-server.listen(8080, '127.0.0.1', () => {
-    console.log('server has started')
-})
 
 server.on('request', (request, response) => {
     let { query, pathname: path } = url.parse(request.url, true)
@@ -51,8 +49,8 @@ server.on('request', (request, response) => {
             response.end(productResponseArray)
         } else {
             let prod = products[query.id]
-            let productDetailResponseHtml = replaceHtml(productDetailHtml, prod )
-            response.end(html.replace('{{%CONTENT%}}', productDetailResponseHtml))    
+            let productDetailResponseHtml = replaceHtml(productDetailHtml, prod)
+            response.end(html.replace('{{%CONTENT%}}', productDetailResponseHtml))
         }
     }
     else {
@@ -64,3 +62,20 @@ server.on('request', (request, response) => {
         response.end(html.replace("{{%CONTENT%}}", `404: page not found`))
     }
 })
+
+server.listen(8080, '127.0.0.1', () => {
+    console.log('server has started')
+})
+
+let myEmitter = new events.EventEmitter()
+
+
+myEmitter.on('userCreated', (name, id) => {
+    console.log(`new ${name} whit ID ${id} created`)
+})
+
+myEmitter.on('userCreated', (name, id) => {
+    console.log(`new user ${name} is added in database whit ID ${id}`)
+})
+  
+myEmitter.emit('userCreated', "jhon", 7)
