@@ -62,35 +62,53 @@ const server = http.createServer()
 //     }
 // })
 
-server.listen(8080, '127.0.0.1', () => {
-    console.log('server has started')
-})
-
-// ******************************************
-// UNDERSTANDING EVENT DRIVEN ARCHITECTURE ** OBSERVER PATTERN
-// ******************************************
+// *****************************************************
+// UNDERSTANDING EVENT DRIVEN ARCHITECTURE            **
+// EMITTING & HANDLING CUSTOM EVENTS OBSERVER PATTERN **
+// *****************************************************
 
 // let myEmitter = new events.EventEmitter()
 
 
 // myEmitter.on('userCreated', (name, id) => {
-//     console.log(`new ${name} whit ID ${id} created`)
-// })
-
-// myEmitter.on('userCreated', (name, id) => {
-//     console.log(`new user ${name} is added in database whit ID ${id}`)
+    //     console.log(`new ${name} whit ID ${id} created`)
+    // })
+    
+    // myEmitter.on('userCreated', (name, id) => {
+        //     console.log(`new user ${name} is added in database whit ID ${id}`)
 // })
   
 // myEmitter.emit('userCreated', "jhon", 7)
 
-// using readable and writable stream
+// ***************************************/
+// UNDERSTANDING STREAMS IN PRACTICE
+// ***************************************/
+
+// server.on('request', (req, res) => {
+    //     let rs = fs.createReadStream("./large.txt")
+    
+    //     rs.on('data', (chunck) => {
+//         res.write(chunck)
+//     })
+//     rs.on('end', () => {
+    //         res.end()
+    //     })
+    
+    //     rs.on('error', (error) => {
+//         res.end(error.message)
+//     })
+// })
+
+
+// ********** CODE EXAMPLE**************
+// UNDERSTANDING PIPE() METHOD
+// *************************************/
+
+server.listen(8080, '127.0.0.1', () => {
+    console.log('server has started')
+})
+
 server.on('request', (req, res) => {
     let rs = fs.createReadStream("./large.txt")
-    rs.on('data', (chunck) => {
-        res.write(chunck)
-        res.end()
-    })
-    rs.on('error', (error) => {
-        res.end(error.message)
-    })
+    rs.pipe(res)
 })
