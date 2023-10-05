@@ -17,9 +17,7 @@ let productDetailHtml = fs.readFileSync("./Template/product-details.html", 'utf-
 
 const server = http.createServer()
 
-server.listen(8080, '127.0.0.1', () => {
-    console.log('server has started')
-})
+server.listen(process.env.PORT || 3000)
 
 server.on('request', (request, response) => {
     let { query, pathname: path } = url.parse(request.url, true)
