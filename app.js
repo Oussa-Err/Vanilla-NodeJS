@@ -5,13 +5,17 @@ const events = require('events')
 const replaceHtml = require("./Modules/replaceHtml")
 
 
+/*LECTURE 8: CODE EXAMPLE**************
+CREATING A SIMPLE WEB SERVER
+***************************************/
+
 const html = fs.readFileSync("./Template/index.html", "utf-8")
 let products = JSON.parse(fs.readFileSync("./Data/products.json", "utf-8"))
 let productListHtml = fs.readFileSync("./Template/product-list.html", "utf-8")
 let productDetailHtml = fs.readFileSync("./Template/product-details.html", 'utf-8')
 
 
-const server = http.createServer()
+// const server = http.createServer()
 
 
 // server.on('request', (request, response) => {
@@ -71,13 +75,13 @@ const server = http.createServer()
 
 
 // myEmitter.on('userCreated', (name, id) => {
-    //     console.log(`new ${name} whit ID ${id} created`)
-    // })
-    
-    // myEmitter.on('userCreated', (name, id) => {
-        //     console.log(`new user ${name} is added in database whit ID ${id}`)
+//     console.log(`new ${name} whit ID ${id} created`)
 // })
-  
+
+// myEmitter.on('userCreated', (name, id) => {
+//     console.log(`new user ${name} is added in database whit ID ${id}`)
+// })
+
 // myEmitter.emit('userCreated', "jhon", 7)
 
 // ***************************************/
@@ -85,16 +89,16 @@ const server = http.createServer()
 // ***************************************/
 
 // server.on('request', (req, res) => {
-    //     let rs = fs.createReadStream("./large.txt")
-    
-    //     rs.on('data', (chunck) => {
+//     let rs = fs.createReadStream("./large.txt")
+
+//     rs.on('data', (chunck) => {
 //         res.write(chunck)
 //     })
 //     rs.on('end', () => {
-    //         res.end()
-    //     })
-    
-    //     rs.on('error', (error) => {
+//         res.end()
+//     })
+
+//     rs.on('error', (error) => {
 //         res.end(error.message)
 //     })
 // })
@@ -104,11 +108,35 @@ const server = http.createServer()
 // UNDERSTANDING PIPE() METHOD
 // *************************************/
 
-server.listen(8080, '127.0.0.1', () => {
-    console.log('server has started')
-})
+// server.listen(8080, '127.0.0.1', () => {
+//     console.log('server has started')
+// })
 
-server.on('request', (req, res) => {
-    let rs = fs.createReadStream("./large.txt")
-    rs.pipe(res)
-})
+// server.on('request', (req, res) => {
+//     let rs = fs.createReadStream("./large.txt")
+//     rs.pipe(res)
+// })
+
+/*LECTURE 29: CODE EXAMPLE**************
+EVENT LOOP IN PRACTICE
+***************************************/
+
+
+// console.log('Program has started')
+
+// //STORED - 2ND PHASE
+// fs.readFile('./Files/input.txt', () => {
+//     console.log('File read complete!');
+
+//     //STORED IN - 1ST PHASE
+//     setTimeout(() => {
+//         console.log('Timer callback executed')
+//     }, 0);
+
+//     //STORED IN - 3RD PHASE
+//     setImmediate(() => {console.log('SetImmediate callback executed')});
+
+//     process.nextTick(() => {console.log('Process.nextTick callback executed')})
+// })
+
+// console.log('Program has completed')
