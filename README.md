@@ -1,6 +1,10 @@
+
+<img src="./Screenshot.png" alt="Screenshot" align="center"/>
+
 <h3 align="center">Vanilla NodeJS Server</h3>
 
----
+- https://attractive-gaiters-ox.cyclic.app
+
 
 <p align="center"> This project is a Node.js server that implements a simple RESTful API with four routes: home, about, products, and contact. The primary focus of this project is to demonstrate the concepts and architecture of a Node.js server implemented from scratch, without the use of frameworks like Express.js.
     <br> 
