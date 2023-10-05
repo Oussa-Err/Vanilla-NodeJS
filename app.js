@@ -15,56 +15,59 @@ let productListHtml = fs.readFileSync("./Template/product-list.html", "utf-8")
 let productDetailHtml = fs.readFileSync("./Template/product-details.html", 'utf-8')
 
 
-// const server = http.createServer()
+const server = http.createServer()
 
+server.listen(8080, '127.0.0.1', () => {
+    console.log('server has started')
+})
 
-// server.on('request', (request, response) => {
-//     let { query, pathname: path } = url.parse(request.url, true)
+server.on('request', (request, response) => {
+    let { query, pathname: path } = url.parse(request.url, true)
 
-//     if (path === '/' || path.toLocaleLowerCase() === "/home") {
-//         response.writeHead(200, {
-//             'Content-Type': 'text/html',
-//             'My-Header': 'hello world'
-//         })
-//         response.end(html.replace('{{%CONTENT%}}', 'You are in the Home page'))
-//     }
-//     else if (path.toLocaleLowerCase() === "/about") {
-//         response.writeHead(200, {
-//             'Content-Type': 'text/html',
-//             'My-Header': 'hello world'
-//         })
-//         response.end(html.replace("{{%CONTENT%}}", `you are in the about page`))
-//     }
-//     else if (path.toLocaleLowerCase() === "/contact") {
-//         response.writeHead(200, {
-//             'Content-Type': 'text/html',
-//             'My-Header': 'hello world'
-//         })
-//         response.end(html.replace("{{%CONTENT%}}", `you are in the contact page`))
-//     }
-//     else if (path.toLocaleLowerCase() === '/products') {
-//         response.writeHead(200, { 'Content-Type': 'text/html' })
-//         if (!query.id) {
-//             let productHtmlArray = products.map((prod) => {
-//                 return replaceHtml(productListHtml, prod)
-//             })
-//             let productResponseArray = html.replace('{{%CONTENT%}}', productHtmlArray.join(''))
-//             response.end(productResponseArray)
-//         } else {
-//             let prod = products[query.id]
-//             let productDetailResponseHtml = replaceHtml(productDetailHtml, prod)
-//             response.end(html.replace('{{%CONTENT%}}', productDetailResponseHtml))
-//         }
-//     }
-//     else {
-//         response.writeHead(404,
-//             {
-//                 'Content-Type': 'text/html'
-//             }
-//         )
-//         response.end(html.replace("{{%CONTENT%}}", `404: page not found`))
-//     }
-// })
+    if (path === '/' || path.toLocaleLowerCase() === "/home") {
+        response.writeHead(200, {
+            'Content-Type': 'text/html',
+            'My-Header': 'hello world'
+        })
+        response.end(html.replace('{{%CONTENT%}}', 'You are in the Home page'))
+    }
+    else if (path.toLocaleLowerCase() === "/about") {
+        response.writeHead(200, {
+            'Content-Type': 'text/html',
+            'My-Header': 'hello world'
+        })
+        response.end(html.replace("{{%CONTENT%}}", `you are in the about page`))
+    }
+    else if (path.toLocaleLowerCase() === "/contact") {
+        response.writeHead(200, {
+            'Content-Type': 'text/html',
+            'My-Header': 'hello world'
+        })
+        response.end(html.replace("{{%CONTENT%}}", `you are in the contact page`))
+    }
+    else if (path.toLocaleLowerCase() === '/products') {
+        response.writeHead(200, { 'Content-Type': 'text/html' })
+        if (!query.id) {
+            let productHtmlArray = products.map((prod) => {
+                return replaceHtml(productListHtml, prod)
+            })
+            let productResponseArray = html.replace('{{%CONTENT%}}', productHtmlArray.join(''))
+            response.end(productResponseArray)
+        } else {
+            let prod = products[query.id]
+            let productDetailResponseHtml = replaceHtml(productDetailHtml, prod)
+            response.end(html.replace('{{%CONTENT%}}', productDetailResponseHtml))
+        }
+    }
+    else {
+        response.writeHead(404,
+            {
+                'Content-Type': 'text/html'
+            }
+        )
+        response.end(html.replace("{{%CONTENT%}}", `404: page not found`))
+    }
+})
 
 // *****************************************************
 // UNDERSTANDING EVENT DRIVEN ARCHITECTURE            **
@@ -108,9 +111,6 @@ let productDetailHtml = fs.readFileSync("./Template/product-details.html", 'utf-
 // UNDERSTANDING PIPE() METHOD
 // *************************************/
 
-// server.listen(8080, '127.0.0.1', () => {
-//     console.log('server has started')
-// })
 
 // server.on('request', (req, res) => {
 //     let rs = fs.createReadStream("./large.txt")
