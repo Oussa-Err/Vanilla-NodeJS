@@ -4,10 +4,9 @@
   "description": "tsf backend server",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js",
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+ },
   "devDependencies": {
     "nodemon": "^3.0.1"
   },
